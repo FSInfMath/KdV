@@ -34,7 +34,7 @@ app.post('/buy/product=:productid,user=:userid', function (req, res) {
 
 });
 
-app.post('/buy/user=:userid,amount=:amount', function (req, res) {
+app.post('/pay/user=:userid,amount=:amount', function (req, res) {
 
 });
 
