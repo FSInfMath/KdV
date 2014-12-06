@@ -52,6 +52,9 @@ app.post('/admin/delete/product=:productid', function (req, res) {
 
 });
 
+app.post('...', function (req, res) {
+});
+
 app.get('/product=:productid', function (req, res) {
     var productid = req.param('productid');
     if (productid && fs.existsSync(__dirname + '/data/products/' + productid + '.json')) {
