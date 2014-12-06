@@ -20,8 +20,24 @@ app.get('/', function (req, res) {
 });
 
 app.get('/products', function (req, res) {
-
+    res.send(JSON.stringify(fs.readdirSync(__dirname + '/data/products').map(function(item){
+       return item.split('.')[0];
+    })));
 });
+
+app.get('/users', function (req, res) {
+    res.send(JSON.stringify(fs.readdirSync(__dirname + '/data/users').map(function(item){
+       return item.split('.')[0];
+    })));
+});
+
+app.get('/transactions', function (req, res) {
+    res.send(JSON.stringify(fs.readdirSync(__dirname + '/data/transactions').map(function(item){
+       return item.split('.')[0];
+    })));
+});
+
+
 
 app.get('/admin', function (req, res) {
     res.sendFile(__dirname + '/static/admin.html');
