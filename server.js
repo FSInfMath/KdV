@@ -21,7 +21,7 @@ app.get('/products', function (req, res) {
 
 });
 
-app.get('/product=:üroductid', function (req, res) {
+app.get('/product=:productid', function (req, res) {
 
 });
 
