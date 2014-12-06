@@ -19,12 +19,14 @@ app.get('/', function (req, res) {
     res.sendFile(__dirname + '/static/landing.html');
 });
 
-app.get('/products', function (req, res) {
-
-});
-
 app.get('/admin', function (req, res) {
     res.sendFile(__dirname + '/static/admin.html');
+});
+
+app.get('/products', function (req, res) {
+//file system: synchron alle dateien im ordner auflisten
+//arrays in javascript angucken
+// json.stringify : aus javascript objekt nen string
 });
 
 app.get('/product=:productid', function (req, res) {
