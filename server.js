@@ -38,6 +38,11 @@ app.post('/pay/user=:userid,amount=:amount', function (req, res) {
 
 });
 
+//TODO: Weitere anlegen
+app.post('/admin/create-product/product=:productid', function (req, res) {
+
+});
+
 var server = app.listen(3000, function () {
     console.log('Listening on port %d', server.address().port);
 })
