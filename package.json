@@ -1,0 +1,21 @@
+{
+  "name": "KdV",
+  "version": "0.0.0",
+  "description": "Kasse des Vertrauens der Fachschaften Informatik und Mathematik der Uni Kiel",
+  "main": "server.js",
+  "scripts": {
+    "test": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/FSInfMath/KdV.git"
+  },
+  "author": "Valentin Buck, Jonas Lutz, Fabian Fröhlich",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/FSInfMath/KdV/issues"
+  },
+  "dependencies": {
+    "express": "~4.10.4"
+  }
+}
