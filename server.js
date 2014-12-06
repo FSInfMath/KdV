@@ -1,5 +1,6 @@
 var express = require('express');
 var app = express();
+var fs = require('fs');
 
 
 var bodyParser = require('body-parser');
@@ -13,6 +14,7 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(express.static(__dirname + '/static'));
 
+
 app.get('/', function (req, res) {
     res.sendFile(__dirname + '/static/landing.html');
 });
@@ -21,8 +23,36 @@ app.get('/products', function (req, res) {
 
 });
 
-app.get('/product=:productid', function (req, res) {
+app.get('/admin', function (req, res) {
+    res.sendFile(__dirname + '/static/admin.html');
+});
 
+app.get('/product=:productid', function (req, res) {
+    var productid = req.param('productid');
+    if (productid && fs.existsSync(__dirname + '/data/products/'+productid+'.json')){
+        res.sendFile(__dirname + '/data/products/'+productid+'.json');
+    }
+    else{
+        res.send('Product not found \n');
+    }
+});
+
+app.get('/product=:productid/:property', function(req, res){
+    var productid = req.param('productid');
+    var property = req.param('property');
+    if (productid && fs.existsSync(__dirname + '/data/products/'+productid+'.json')){
+        var raw = fs.readFileSync(__dirname + '/data/products/'+productid+'.json', 'utf-8');
+        var product = JSON.parse(raw);
+        if(property && product.hasOwnProperty(property)){
+            res.send(product[property]);
+        }
+        else{
+            res.send('Property not found');
+        }
+    }
+    else{
+        res.send('Product not found \n');
+    }
 });
 
 app.get('/user=:userid', function (req, res) {
