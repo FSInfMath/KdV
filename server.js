@@ -23,20 +23,20 @@ app.get('/', function (req, res) {
 //arrays in javascript angucken
 // json.stringify : aus javascript objekt nen string
 app.get('/products', function (req, res) {
-    res.send(JSON.stringify(fs.readdirSync(__dirname + '/data/products').map(function(item){
-       return item.split('.')[0];
+    res.send(JSON.stringify(fs.readdirSync(__dirname + '/data/products').map(function (item) {
+        return item.split('.')[0];
     })));
 });
 
 app.get('/users', function (req, res) {
-    res.send(JSON.stringify(fs.readdirSync(__dirname + '/data/users').map(function(item){
-       return item.split('.')[0];
+    res.send(JSON.stringify(fs.readdirSync(__dirname + '/data/users').map(function (item) {
+        return item.split('.')[0];
     })));
 });
 
 app.get('/transactions', function (req, res) {
-    res.send(JSON.stringify(fs.readdirSync(__dirname + '/data/transactions').map(function(item){
-       return item.split('.')[0];
+    res.send(JSON.stringify(fs.readdirSync(__dirname + '/data/transactions').map(function (item) {
+        return item.split('.')[0];
     })));
 });
 
@@ -44,30 +44,35 @@ app.get('/admin', function (req, res) {
     res.sendFile(__dirname + '/static/admin.html');
 });
 
+app.post('/admin/delete/product=:productid', function (req, res) {
+    var productid = req.param('productid');
+    var fileToDelete = __dirname + '/data/products/' + productid + '.json';
+    if (productid && fs.existsSync(fileToDelete)) {
+        fs.unlinkSync(fileToDelete);
+
+});
+
 app.get('/product=:productid', function (req, res) {
     var productid = req.param('productid');
-    if (productid && fs.existsSync(__dirname + '/data/products/'+productid+'.json')){
-        res.sendFile(__dirname + '/data/products/'+productid+'.json');
-    }
-    else{
+    if (productid && fs.existsSync(__dirname + '/data/products/' + productid + '.json')) {
+        res.sendFile(__dirname + '/data/products/' + productid + '.json');
+    } else {
         res.send('Product not found \n');
     }
 });
 
-app.get('/product=:productid/:property', function(req, res){
+app.get('/product=:productid/:property', function (req, res) {
     var productid = req.param('productid');
     var property = req.param('property');
-    if (productid && fs.existsSync(__dirname + '/data/products/'+productid+'.json')){
-        var raw = fs.readFileSync(__dirname + '/data/products/'+productid+'.json', 'utf-8');
+    if (productid && fs.existsSync(__dirname + '/data/products/' + productid + '.json')) {
+        var raw = fs.readFileSync(__dirname + '/data/products/' + productid + '.json', 'utf-8');
         var product = JSON.parse(raw);
-        if(property && product.hasOwnProperty(property)){
+        if (property && product.hasOwnProperty(property)) {
             res.send(product[property]);
-        }
-        else{
+        } else {
             res.send('Property not found');
         }
-    }
-    else{
+    } else {
         res.send('Product not found \n');
     }
 });
