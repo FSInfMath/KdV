@@ -1,0 +1,139 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="picnic.css">
+    <style>
+        padding:3px;
+    </style>
+    <script type="text/javascript" src="d3.v3.min.js"></script>
+    <script type="text/javascript">
+        function loadTables() {
+            d3.json('products', function (products) {
+                if (Array.isArray(products)) {
+                    products.forEach(function (product) {
+                        d3.json('product=' + product, function (product) {
+                            if (product) {
+                                var tr = d3.select('#products-table>tbody').append('tr');
+                                tr.attr('id', 'product-' + product['id']);
+                                tr.append('td').text(product['id']);
+                                tr.append('td').text(product['name']);
+                                tr.append('td').text(product['price']);
+                                tr.append('td').text(product['stock']);
+                                tr.append('td').append('img').attr('src', product['picture']);
+                            }
+                        });
+                    });
+                }
+            });
+
+            d3.json('users', function (users) {
+                if (Array.isArray(users)) {
+                    users.forEach(function (user) {
+                        d3.json('user=' + user, function (user) {
+                            if (user) {
+                                var tr = d3.select('#users-table>tbody').append('tr');
+                                tr.attr('id', 'user-' + user['id']);
+                                tr.append('td').text(user['id']);
+                                tr.append('td').text(user['name']);
+                                tr.append('td').text(user['email']);
+                                tr.append('td').text(user['balance']);
+                                tr.append('td').append('img').attr('src', user['picture']);
+                                tr.append('td').html(user['transactions'].map(function (transaction) {
+                                    return '<a href="#transaction-' + transaction + '">' + transaction + '</a>';
+                                }).join(', '));
+
+                            }
+                        });
+                    });
+                }
+            });
+
+
+
+            d3.json('transactions', function (transactions) {
+                if (Array.isArray(transactions)) {
+                    transactions.forEach(function (transactionid) {
+                        d3.json('transaction=' + transactionid, function (transaction) {
+                            console.log('TRID:' + transaction);
+                            if (transaction) {
+                                console.log(transaction);
+                                var tr = d3.select('#transactions-table>tbody').append('tr');
+                                tr.attr('id', 'transaction-' + transaction['id']);
+                                tr.append('td').text(transaction['id']);
+                                tr.append('td').html('<a href="#product-' + transaction['product'] + '">' + transaction['product'] + '</a>');
+                                tr.append('td').html('<a href="#user-' + transaction['user'] + '">' + transaction['user'] + '</a>');
+                                tr.append('td').text(transaction['timestamp']);
+                            }
+                        });
+                    });
+                }
+            });
+        }
+    </script>
+</head>
+
+<body onload="loadTables();">
+    <h1>Admin-Menü</h1>
+    <h2>Products</h2>
+    <table id="products-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Preis</th>
+                <th>Vorrat</th>
+                <th>Bild</th>
+                <th>Update</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+    <br/>
+    <br/>
+    <h2>Users</h2>
+    <table id="users-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Kontostand</th>
+                <th>Bild</th>
+                <th>Transaktionen</th>
+                <th>Update</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr id="new">
+                <td contenteditable="true">ID</td>
+                <td contenteditable="true">Name</td>
+                <td contenteditable="true">Email</td>
+                <td contenteditable="true">Kontostand</td>
+                <td>Bild</td>
+                <td contenteditable="true">Transaktionen</td>
+                <td>
+                    <button onclick="updateUser('new');">Update</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <br/>
+    <br/>
+    <h2>Transactions</h2>
+    <table id="transactions-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Product-ID</th>
+                <th>User</th>
+                <th>Timestamp</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+    <table id="transactions-table"></table>
+</body>
+
+</html>
