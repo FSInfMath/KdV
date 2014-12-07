@@ -44,6 +44,17 @@ app.get('/admin', function (req, res) {
     res.sendFile(__dirname + '/static/admin.html');
 });
 
+app.post('/admin/delete/product=:productid', function (req, res) {
+    var productid = req.param('productid');
+    var fileToDelete = __dirname + '/data/products/' + productid + '.json';
+    if (productid && fs.existsSync(fileToDelete)) {
+        fs.unlinkSync(fileToDelete);
+
+});
+
+app.post('...', function (req, res) {
+});
+
 app.get('/product=:productid', function (req, res) {
     var productid = req.param('productid');
     if (productid && fs.existsSync(__dirname + '/data/products/' + productid + '.json')) {
