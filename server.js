@@ -49,8 +49,8 @@ app.post('/admin/delete/product=:productid', function (req, res) {
         var fileToDelete = __dirname + '/data/products/' + productid + '.json';
         if (productid && fs.existsSync(fileToDelete)) {
             fs.unlinkSync(fileToDelete);
-
-        });
+        }
+    });
 
     app.post('...', function (req, res) {});
 
