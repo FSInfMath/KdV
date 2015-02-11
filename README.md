@@ -48,4 +48,4 @@ To run the KDV:
 node server.js
 ```
 
-the KDV now runs on port 3000
+The 'KDV' now runs on port 3000
