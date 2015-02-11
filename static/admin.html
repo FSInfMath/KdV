@@ -69,6 +69,30 @@
                 }
             });
         }
+        
+        function updateUser(ID) {
+            if (ID == "new") {
+                var newUser = {};
+                newUser.Id = document.getElementById("newUserId").innerText;
+                newUser.Name = document.getElementById("newUserName").innerText;
+                newUser.Mail = document.getElementById("newUserEmail").innerText;
+                newUser.Balance = document.getElementById("newUserKontostand").innerText;
+                newUser.Picture = document.getElementById("newUserPicture").innerText;
+                d3.xhr('/admin/create-user/id='+newUser.Id
+                                    +',name='+newUser.Name
+                                    +',email='+newUser.Mail
+                                    +',balance='+newUser.Balance
+                                    +',picture='+newUser.Picture)
+                    .post("", function(error, rawdata){
+                        console.log(rawdata);
+                    })
+                ;
+            } else {
+                // TODO define
+                console.log("updateUser: else not defined");
+            }
+            loadTables();
+        }
     </script>
 </head>
 
@@ -107,12 +131,12 @@
         </thead>
         <tbody>
             <tr id="new">
-                <td contenteditable="true">ID</td>
-                <td contenteditable="true">Name</td>
-                <td contenteditable="true">Email</td>
-                <td contenteditable="true">Kontostand</td>
-                <td>Bild</td>
-                <td contenteditable="true">Transaktionen</td>
+                <td id="newUserId" contenteditable="true">ID</td>
+                <td id="newUserName" contenteditable="true">Name</td>
+                <td id="newUserEmail" contenteditable="true">Email</td>
+                <td id="newUserKontostand" contenteditable="true">Kontostand</td>
+                <td id="newUserPicture">Bild</td>
+                <td id="newUserTransaktionen" contenteditable="true">Transaktionen</td>
                 <td>
                     <button onclick="updateUser('new');">Update</button>
                 </td>
