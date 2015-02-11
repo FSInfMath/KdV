@@ -8,7 +8,9 @@ Installation instructions:
 
 Make sure that you have the following packages installed:
 
-nodejs nodejs-legacy npm
+* nodejs
+* nodejs-legacy
+* npm
 
 ```
 sudo apt-get install nodejs nodejs-legacy npm
