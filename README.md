@@ -1,7 +1,7 @@
-KdV
-===
+KdV (Kasse des Vertrauens)
+===========================
 
-Kasse des Vertrauens der Fachschaften Informatik und Mathematik Kiel 
+Kasse des Vertrauens (point of sale) of the Student Counsil Computer Sciene and Mathematics Kiel 
 
 Installation instructions:
 --------------------------
